@@ -1,0 +1,30 @@
+
+body {
+    background: #1d1f20;
+    padding: 50px;
+    overflow: hidden;
+    color: #FFF;
+}
+
+.text-wrap {
+    margin: 0;
+    position: relative;
+    width: 100%;
+    /* opacity: 0; */
+    /* transition: opacity 1s; */
+}
+
+.text-wrap.active {
+    opacity: 1;
+}
+
+svg {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    font: bold 100px sans-serif;
+}
+
+.text-layer {
+    fill: url(#p-img);
+}

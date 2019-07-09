@@ -1,0 +1,30 @@
+body {
+    background: #1d1f20;
+    padding: 50px;
+    overflow: hidden;
+    color: #FFF;
+}
+
+/* * {
+    box-sizing: border-box;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+} */
+
+.text-wrap{
+    margin: 0;
+    position: relative;
+    width: 100%;
+}
+
+svg {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    font: bold 100px sans-serif;
+    text-transform: uppercase;
+}
+
+.img-layer {
+    fill: url(#p-img);
+}

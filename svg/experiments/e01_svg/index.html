@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>SVG Experiment</title>
+
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <!-- <object type="image/svg+xml" data="scene.svg" class="myobj"></object> -->
+        <div class="text-wrap">
+            <svg version="1.1" viewBox="0 0 500 500"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+
+                <pattern id="p-img"
+                    viewBox="0 0 100% 100%"
+                    patternUnits="userSpaceOnUse"
+                    width="100%" height="100%"
+                    x="-50%" y="0%">
+
+                    <image xlink:href="trainder.jpg" width="100%" height="100%" x="0" y="0"/>
+                </pattern>
+
+                <text class="text-layer" text-anchor="middle" x="30%" y="25%" class="text-layer">j</text>
+                <text class="text-layer" text-anchor="middle" x="50%" y="50%" class="text-layer">o</text>
+
+            </svg>
+
+            <svg version="1.1" viewBox="0 0 500 500"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+
+            </svg>
+
+            <svg version="1.1" viewBox="0 0 500 500"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+
+            </svg>
+        </div>
+
+
+        <script type="text/javascript">
+            var callback = function(){
+                // Handler when the DOM is fully loaded
+                var x = document.querySelector(".text-wrap");
+                x.classList.add("active");
+            };
+
+            if (
+                document.readyState === "complete" ||
+                (document.readyState !== "loading" && !document.documentElement.doScroll)
+            ) {
+                callback();
+            } else {
+                document.addEventListener("DOMContentLoaded", callback);
+            }
+        </script>
+    </body>
+</html>
