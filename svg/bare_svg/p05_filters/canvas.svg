@@ -2,8 +2,6 @@
      xmlns:xlink="http://www.w3.org/1999/xlink"
      version="1.1">
 
-    <title></title>
-
     <style>/* <![CDATA[ */
 
         @keyframes flash {
@@ -34,7 +32,7 @@
             cursor: pointer;
         }
 
-        .grid-toggle-btn:hover {
+        .grid-toggle-btn:hover, .grid-toggle-btn.active {
             fill: #62B1D0;
             stroke: #FF2C00;
         }
@@ -43,16 +41,6 @@
     /* ]]> */</style>
 
     <!-- drawing zone -->
-    <text x="10%" y="10%" font-size="5vw" fill="white">Stroke dasharray</text>
-     <line x1="10%" y1="20%" x2="90%" y2="20%"
-         stroke="white" stroke-width="0.5%"
-         stroke-dasharray="5% 1.5%"/>
-      <line x1="10%" y1="25%" x2="90%" y2="25%"
-          stroke="white" stroke-width="0.5%"
-          stroke-dasharray="2.5% 5%"/>
-       <line x1="10%" y1="30%" x2="90%" y2="30%"
-           stroke="white" stroke-width="0.5%"
-           stroke-dasharray="1% 5% 15%"/>
 
     <!-- END drawing zone -->
 
@@ -72,6 +60,7 @@
             verticalLine.setAttribute('stroke-width', '2');
             verticalLine.setAttribute('stroke-dasharray', '0.1%,1%');
             verticalLine.classList.add('grid-line');
+            verticalLine.classList.add('invisible');
             svg.appendChild(verticalLine);
 
             let horizontalLine = document.createElementNS(
@@ -84,6 +73,7 @@
             horizontalLine.setAttribute('stroke-width', '2');
             horizontalLine.setAttribute('stroke-dasharray', '0.1%,1%');
             horizontalLine.classList.add('grid-line');
+            horizontalLine.classList.add('invisible');
             svg.appendChild(horizontalLine);
 
 
@@ -104,6 +94,7 @@
             for (const gridLine of gridLines) {
                 gridLine.classList.toggle('invisible');
             }
+            toggleRect.classList.toggle('active');
         };
         svg.appendChild(toggleRect);
 
