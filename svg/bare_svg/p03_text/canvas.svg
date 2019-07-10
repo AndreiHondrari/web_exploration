@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     version="1.1">
+
+    <title>Shapes</title>
+
+    <style>/* <![CDATA[ */
+
+        @keyframes flash {
+            0% {}
+            50% {
+                fill: red;
+                stroke: yellow;
+            }
+            100% {}
+        }
+
+        text {
+            font-weight: bold;
+            font-family: serif;
+        }
+
+        .invisible {
+            display: none;
+        }
+
+        .flashable {
+            cursor: pointer;
+        }
+
+        .flash {
+            animation-name: flash;
+            animation-duration: 0.25s;
+            animation-iteration-count: infinite;
+        }
+
+        .grid-toggle-btn {
+            transition: fill 0.15s, stroke 0.15s;
+            cursor: pointer;
+        }
+
+        .grid-toggle-btn:hover {
+            fill: #62B1D0;
+            stroke: #FF2C00;
+        }
+
+
+    /* ]]> */</style>
+
+    <!-- drawing zone -->
+    <text x="10%" dy="40%" fill="white" font-size="10vw">
+        <tspan x="10%">Der Schwarz Kaiser</tspan>
+        <tspan x="10%" dy="10vw">ist zu schrecklich!</tspan>
+    </text>
+
+    <!-- END drawing zone -->
+
+    <script><![CDATA[
+        let svg = document.querySelector('svg');
+
+        const points = [10, 20, 30, 40, 50, 60, 70, 80, 90];
+
+        for (const x of points) {
+            let verticalLine = document.createElementNS(
+                "http://www.w3.org/2000/svg", 'line');
+            verticalLine.setAttribute('x1', `${x}%`);
+            verticalLine.setAttribute('x2', `${x}%`);
+            verticalLine.setAttribute('y1', '0%');
+            verticalLine.setAttribute('y2', '100%');
+            verticalLine.setAttribute('stroke', 'red');
+            verticalLine.setAttribute('stroke-width', '2');
+            verticalLine.setAttribute('stroke-dasharray', '0.1%,1%');
+            verticalLine.classList.add('grid-line');
+            svg.appendChild(verticalLine);
+
+            let horizontalLine = document.createElementNS(
+                "http://www.w3.org/2000/svg", 'line');
+            horizontalLine.setAttribute('y1', `${x}%`);
+            horizontalLine.setAttribute('y2', `${x}%`);
+            horizontalLine.setAttribute('x1', '0%');
+            horizontalLine.setAttribute('x2', '100%');
+            horizontalLine.setAttribute('stroke', 'red');
+            horizontalLine.setAttribute('stroke-width', '2');
+            horizontalLine.setAttribute('stroke-dasharray', '0.1%,1%');
+            horizontalLine.classList.add('grid-line');
+            svg.appendChild(horizontalLine);
+
+
+        }
+
+        let toggleRect = document.createElementNS(
+            "http://www.w3.org/2000/svg", 'rect');
+        toggleRect.setAttribute('x', "95%");
+        toggleRect.setAttribute('y', "2.5%");
+        toggleRect.setAttribute('height', "5%");
+        toggleRect.setAttribute('width', "2.5%");
+        toggleRect.setAttribute('fill', "#024C68");
+        toggleRect.setAttribute('stroke', "#A67600");
+        toggleRect.setAttribute('stroke-width', "0.5%");
+        toggleRect.classList.add("grid-toggle-btn");
+        toggleRect.onclick = function() {
+            let gridLines = document.querySelectorAll('.grid-line');
+            for (const gridLine of gridLines) {
+                gridLine.classList.toggle('invisible');
+            }
+        };
+        svg.appendChild(toggleRect);
+
+        const shapes = document.querySelectorAll('.flashable');
+        for (const shIndex in shapes) {
+            const shape = shapes[shIndex];
+            shape.onclick = function() {
+                shape.classList.add('flash');
+
+                setTimeout(function(){
+                    shape.classList.remove('flash');
+                }, 500);
+            };
+        }
+
+    ]]></script>
+
+
+</svg>
