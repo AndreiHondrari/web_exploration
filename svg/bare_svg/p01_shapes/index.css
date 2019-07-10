@@ -18,6 +18,10 @@ body {
     align-items: center;
 }
 
+object {
+    width: 100%;
+    height: 100%;
+}
+
 svg {
-    border: 2px dashed yellow;
 }
