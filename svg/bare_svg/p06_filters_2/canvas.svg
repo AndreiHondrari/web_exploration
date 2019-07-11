@@ -1,0 +1,305 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     version="1.1">
+
+    <style>/* <![CDATA[ */
+
+        @keyframes flash {
+            0% {}
+            50% {
+                fill: red;
+                stroke: yellow;
+            }
+            100% {}
+        }
+
+        .invisible {
+            display: none;
+        }
+
+        .flashable {
+            cursor: pointer;
+        }
+
+        .flash {
+            animation-name: flash;
+            animation-duration: 0.25s;
+            animation-iteration-count: infinite;
+        }
+
+        .grid-toggle-btn {
+            transition: fill 0.15s, stroke 0.15s;
+            cursor: pointer;
+            fill: #024C68;
+            stroke: #A67600;
+        }
+
+        .grid-toggle-btn.active {
+            fill: #62B1D0;
+            stroke: #FF2C00;
+        }
+
+        .grid-toggle-btn:hover {
+            filter: url(#rippleShadow);
+        }
+
+
+    /* ]]> */</style>
+
+    <!-- Filters -->
+    <defs>
+
+        <!-- Interface filters & animation -->
+
+        <filter id="rippleShadow" x="-50%" y="-50%"
+            width="200%" height="200%">
+            <feOffset result="offOut" in="SourceAlpha" dx="0" dy="0"/>
+            <feGaussianBlur id="rippleShadowBlur"
+                result="blurOut" in="offOut" stdDeviation="5" />
+            <feColorMatrix
+                in="blurOut"
+                result="colorOut"
+                type="matrix"
+                values="-1  0  0  0  1
+                         0 -1  0  0  1
+                         0  0 -1  0  1
+                         0  0  0  1  0"/>
+            <feColorMatrix
+                id="rippleShadowOpacity"
+                in="colorOut"
+                result="opacityOut"
+                type="matrix"
+                values=" 0  0  0  0  1
+                         0  0  0  0  1
+                         0  0  0  0  1
+                         0  0  0  1  0"/>
+            <feBlend in="SourceGraphic" in2="opacityOut" mode="normal" />
+        </filter>
+        <animate
+            xlink:href="#rippleShadowOpacity"
+            id="anim-opacity-alternate"
+            attributeName="values"
+            values="
+            0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0;
+            0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0;
+            0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0"
+            dur="0.3s"
+            repeatCount="indefinite"
+        />
+
+        <!-- Custom filters -->
+        <filter id="gamma1">
+            <feComponentTransfer>
+                <feFuncR type="gamma" amplitude="1000" exponent="10" offset="0"/>
+                <feFuncG type="gamma" amplitude="0" exponent="0" offset="0"/>
+                <feFuncB type="gamma" amplitude="0" exponent="0" offset="0"/>
+                <feFuncA type="identity"/>
+            </feComponentTransfer>
+        </filter>
+
+        <filter id="gamma2">
+            <feComponentTransfer>
+                <feFuncR type="gamma" amplitude="0" exponent="0" offset="0"/>
+                <feFuncG type="gamma" amplitude="200" exponent="5" offset="0"/>
+                <feFuncB type="gamma" amplitude="0" exponent="0" offset="0"/>
+                <feFuncA type="identity"/>
+            </feComponentTransfer>
+        </filter>
+
+        <filter id="gamma3">
+            <feComponentTransfer>
+                <feFuncR type="gamma" amplitude="0" exponent="0" offset="0"/>
+                <feFuncG type="gamma" amplitude="0" exponent="0" offset="0"/>
+                <feFuncB type="gamma" amplitude="500" exponent="10" offset="0"/>
+                <feFuncA type="identity"/>
+            </feComponentTransfer>
+        </filter>
+
+        <filter id="gamma4">
+            <feComponentTransfer>
+                <feFuncR type="gamma" amplitude="10" exponent="3" offset="0"/>
+                <feFuncG type="gamma" amplitude="10" exponent="3" offset="0"/>
+                <feFuncB type="gamma" amplitude="10" exponent="3" offset="0"/>
+                <feFuncA type="identity"/>
+            </feComponentTransfer>
+        </filter>
+
+        <filter id="gamma5">
+            <feComponentTransfer>
+                <feFuncR type="gamma" amplitude="2" exponent="3.5" offset="0"/>
+                <feFuncG type="gamma" amplitude="2" exponent="3.5" offset="0"/>
+                <feFuncB type="gamma" amplitude="2" exponent="3.5" offset="0"/>
+                <feFuncA type="identity"/>
+            </feComponentTransfer>
+        </filter>
+
+        <filter id="turbulence1">
+            <feTurbulence
+                type="turbulence" baseFrequency="0.01" numOctaves="1"/>
+        </filter>
+
+        <filter id="turbulence2">
+            <feTurbulence
+                type="fractalNoise" baseFrequency="0.08" numOctaves="1"/>
+        </filter>
+
+        <filter id="turbulence3">
+            <feTurbulence
+                type="turbulence" baseFrequency="0.1" numOctaves="1"
+                result="outTurb"/>
+            <feDisplacementMap in="SourceGraphic" in2="outTurb" scale="50"/>
+        </filter>
+
+        <filter id="turbulence4">
+            <feTurbulence
+                type="fractalNoise" baseFrequency="0.1" numOctaves="1"
+                result="outTurb"/>
+            <feDisplacementMap in="SourceGraphic" in2="outTurb" scale="50"/>
+        </filter>
+
+
+    </defs>
+
+    <!-- Title -->
+    <text x="10%" y="10%"
+        font-size="2.5vw" fill="white" font-weight="bold">
+        SVG Filters -II-
+    </text>
+
+    <!-- drawing zone -->
+
+    <!-- first column -->
+    <image xlink:href="castle.jpg"
+        x="10%" y="17.5%" width="15%"
+        filter="url(#gamma1)"/>
+
+    <image xlink:href="castle.jpg"
+        x="10%" y="37.5%" width="15%"
+        filter="url(#gamma2)"/>
+
+    <image xlink:href="castle.jpg"
+        x="10%" y="57.5%" width="15%"
+        filter="url(#gamma3)"/>
+
+    <image xlink:href="castle.jpg"
+        x="10%" y="77.5%" width="15%"
+        filter="url(#gamma4)"/>
+
+    <!-- second column -->
+    <image xlink:href="castle.jpg"
+        x="30%" y="17.5%" width="15%"
+        filter="url(#gamma5)"/>
+
+    <rect x="30%" y="37.5%" width="15%" height="13.5%" fill="#CC0F16"
+        filter="url(#turbulence1)"/>
+
+    <rect x="30%" y="57.5%" width="15%" height="13.5%" fill="#CC0F16"
+        filter="url(#turbulence2)"/>
+
+    <image xlink:href="castle.jpg"
+        x="30%" y="77.5%" width="15%"
+        filter="url(#turbulence3)"/>
+
+    <!-- third column -->
+    <image xlink:href="castle.jpg"
+        x="50%" y="17.5%" width="15%"
+        filter="url(#turbulence4)"/>
+
+    <image xlink:href="castle.jpg"
+        x="50%" y="37.5%" width="15%"
+        filter="url(#)"/>
+
+    <image xlink:href="castle.jpg"
+        x="50%" y="57.5%" width="15%"
+        filter="url(#)"/>
+
+    <image xlink:href="castle.jpg"
+        x="50%" y="77.5%" width="15%"
+        filter="url(#)"/>
+
+    <!-- fourth column -->
+    <image xlink:href="castle.jpg"
+        x="70%" y="17.5%" width="15%"
+        filter="url(#)"/>
+
+    <image xlink:href="castle.jpg"
+        x="70%" y="37.5%" width="15%"
+        filter="url(#)"/>
+
+    <image xlink:href="castle.jpg"
+        x="70%" y="57.5%" width="15%"
+        filter="url(#)"/>
+
+    <image xlink:href="castle.jpg"
+        x="70%" y="77.5%" width="15%"
+        filter="url(#)"/>
+
+    <!-- END drawing zone -->
+
+    <script><![CDATA[
+        let svg = document.querySelector('svg');
+
+        const points = [10, 20, 30, 40, 50, 60, 70, 80, 90];
+
+        for (const x of points) {
+            let verticalLine = document.createElementNS(
+                "http://www.w3.org/2000/svg", 'line');
+            verticalLine.setAttribute('x1', `${x}%`);
+            verticalLine.setAttribute('x2', `${x}%`);
+            verticalLine.setAttribute('y1', '0%');
+            verticalLine.setAttribute('y2', '100%');
+            verticalLine.setAttribute('stroke', 'red');
+            verticalLine.setAttribute('stroke-width', '2');
+            verticalLine.setAttribute('stroke-dasharray', '0.1%,1%');
+            verticalLine.classList.add('grid-line');
+            svg.appendChild(verticalLine);
+
+            let horizontalLine = document.createElementNS(
+                "http://www.w3.org/2000/svg", 'line');
+            horizontalLine.setAttribute('y1', `${x}%`);
+            horizontalLine.setAttribute('y2', `${x}%`);
+            horizontalLine.setAttribute('x1', '0%');
+            horizontalLine.setAttribute('x2', '100%');
+            horizontalLine.setAttribute('stroke', 'red');
+            horizontalLine.setAttribute('stroke-width', '2');
+            horizontalLine.setAttribute('stroke-dasharray', '0.1%,1%');
+            horizontalLine.classList.add('grid-line');
+            svg.appendChild(horizontalLine);
+
+
+        }
+
+        let toggleRect = document.createElementNS(
+            "http://www.w3.org/2000/svg", 'rect');
+        toggleRect.setAttribute('x', "95%");
+        toggleRect.setAttribute('y', "2.5%");
+        toggleRect.setAttribute('height', "5%");
+        toggleRect.setAttribute('width', "2.5%");
+        toggleRect.setAttribute('stroke-width', "0.5%");
+        toggleRect.classList.add("grid-toggle-btn");
+        toggleRect.classList.add("active");
+        toggleRect.onclick = function() {
+            let gridLines = document.querySelectorAll('.grid-line');
+            for (const gridLine of gridLines) {
+                gridLine.classList.toggle('invisible');
+            }
+            toggleRect.classList.toggle('active');
+        };
+        svg.appendChild(toggleRect);
+
+        const shapes = document.querySelectorAll('.flashable');
+        for (const shIndex in shapes) {
+            const shape = shapes[shIndex];
+            shape.onclick = function() {
+                shape.classList.add('flash');
+
+                setTimeout(function(){
+                    shape.classList.remove('flash');
+                }, 500);
+            };
+        }
+
+    ]]></script>
+
+
+</svg>
