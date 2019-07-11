@@ -30,17 +30,280 @@
         .grid-toggle-btn {
             transition: fill 0.15s, stroke 0.15s;
             cursor: pointer;
+            fill: #024C68;
+            stroke: #A67600;
         }
 
-        .grid-toggle-btn:hover, .grid-toggle-btn.active {
+        .grid-toggle-btn.active {
             fill: #62B1D0;
             stroke: #FF2C00;
+        }
+
+        .grid-toggle-btn:hover {
+            filter: url(#rippleShadow);
         }
 
 
     /* ]]> */</style>
 
+    <!-- Filters -->
+    <defs>
+
+        <!-- Interface filters & animation -->
+
+        <filter id="rippleShadow" x="-50%" y="-50%"
+            width="200%" height="200%">
+            <feOffset result="offOut" in="SourceAlpha" dx="0" dy="0"/>
+            <feGaussianBlur id="rippleShadowBlur"
+                result="blurOut" in="offOut" stdDeviation="5" />
+            <feColorMatrix
+                in="blurOut"
+                result="colorOut"
+                type="matrix"
+                values="-1  0  0  0  1
+                         0 -1  0  0  1
+                         0  0 -1  0  1
+                         0  0  0  1  0"/>
+            <feColorMatrix
+                id="rippleShadowOpacity"
+                in="colorOut"
+                result="opacityOut"
+                type="matrix"
+                values=" 0  0  0  0  1
+                         0  0  0  0  1
+                         0  0  0  0  1
+                         0  0  0  1  0"/>
+            <feBlend in="SourceGraphic" in2="opacityOut" mode="normal" />
+        </filter>
+        <animate
+            xlink:href="#rippleShadowOpacity"
+            id="anim-opacity-alternate"
+            attributeName="values"
+            values="
+            0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0;
+            0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0;
+            0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.5 0"
+            dur="0.3s"
+            repeatCount="indefinite"
+        />
+
+        <!-- Custom filters -->
+        <filter id="blur1">
+            <feGaussianBlur stdDeviation="2"/>
+        </filter>
+
+        <filter id="color1">
+            <feColorMatrix
+                type="matrix"
+                values="-1  0  0  0  1
+                         0 -1  0  0  1
+                         0  0 -1  0  1
+                         0  0  0  1  0"/>
+        </filter>
+
+        <filter id="color2">
+            <feColorMatrix
+                type="matrix"
+                values=" 1  0  0  0  0
+                         0  0  0  0  0
+                         0  0  0  0  0
+                         0  0  0  1  0"/>
+        </filter>
+
+        <filter id="color3">
+            <feColorMatrix
+                type="saturate"
+                values="0.2"/>
+        </filter>
+
+        <filter id="color4">
+            <feColorMatrix
+                type="saturate"
+                values="10"/>
+        </filter>
+
+        <filter id="color5">
+            <feColorMatrix
+                type="saturate"
+                values="200"/>
+        </filter>
+
+        <filter id="color6">
+            <feColorMatrix
+                type="hueRotate"
+                values="180"/>
+        </filter>
+
+        <filter id="color7">
+            <feColorMatrix
+                type="luminanceToAlpha"/>
+        </filter>
+
+        <filter id="transfer1">
+            <feComponentTransfer>
+                <feFuncR type="table" tableValues="1 0 0 0"/>
+                <feFuncG type="table" tableValues="0 0 0 0"/>
+                <feFuncB type="table" tableValues="0 0 0 0"/>
+                <feFuncA type="table" tableValues="0 0 0 1"/>
+            </feComponentTransfer>
+        </filter>
+
+        <filter id="transfer2">
+            <feComponentTransfer>
+                <feFuncR type="table" tableValues="0 0 0 0"/>
+                <feFuncG type="table" tableValues="0 1 0 0"/>
+                <feFuncB type="table" tableValues="0 0 0 0"/>
+                <feFuncA type="table" tableValues="0 0 0 1"/>
+            </feComponentTransfer>
+        </filter>
+
+        <filter id="transfer3">
+            <feComponentTransfer>
+                <feFuncR type="table" tableValues="0 0 0 0"/>
+                <feFuncG type="table" tableValues="0 0 0 0"/>
+                <feFuncB type="table" tableValues="0 0 1 0"/>
+                <feFuncA type="table" tableValues="0 0 0 1"/>
+            </feComponentTransfer>
+        </filter>
+
+        <filter id="transfer4">
+            <feComponentTransfer>
+                <feFuncR type="table" tableValues="0 0 0 0"/>
+                <feFuncG type="table" tableValues="0 0 1 0"/>
+                <feFuncB type="table" tableValues="0 0 1 0"/>
+                <feFuncA type="table" tableValues="0 0 0 1"/>
+            </feComponentTransfer>
+        </filter>
+
+        <filter id="transfer5">
+            <feComponentTransfer>
+                <feFuncR type="discrete" tableValues="1 0 0 0"/>
+                <feFuncG type="discrete" tableValues="0 1 0 0"/>
+                <feFuncB type="discrete" tableValues="0 0 0 0"/>
+                <feFuncA type="discrete" tableValues="0 0 0 1"/>
+            </feComponentTransfer>
+        </filter>
+
+        <filter id="transfer6">
+            <feComponentTransfer>
+                <!-- linear: C' = C' * slope + intercept -->
+                <feFuncR type="linear" slope="1" intercept="0"/>
+                <feFuncG type="table" tableValues="0 0 0 0"/>
+                <feFuncB type="table" tableValues="0 0 0 0"/>
+                <feFuncA type="identity"/>
+            </feComponentTransfer>
+        </filter>
+
+        <filter id="transfer7">
+            <feComponentTransfer>
+                <feFuncR type="linear" slope="0" intercept="0.5"/>
+                <feFuncG type="linear" slope="1" intercept="0"/>
+                <feFuncB type="table" tableValues="0 0 0 0"/>
+                <feFuncA type="identity"/>
+            </feComponentTransfer>
+        </filter>
+
+        <filter id="transfer8">
+            <feComponentTransfer>
+                <feFuncR type="linear" slope="1" intercept="0"/>
+                <feFuncG type="linear" slope="0" intercept="0"/>
+                <feFuncB type="linear" slope="1" intercept="0"/>
+                <feFuncA type="identity"/>
+            </feComponentTransfer>
+        </filter>
+
+        <filter id="shadow" x="0" y="0" width="200%" height="200%">
+            <feOffset result="offOut" in="SourceAlpha" dx="25" dy="10"/>
+            <feGaussianBlur result="blurOut" in="offOut" stdDeviation="5" />
+            <feColorMatrix
+                in="blurOut"
+                result="colorOut"
+                type="matrix"
+                values="-1  0  0  0  1
+                         0 -1  0  0  1
+                         0  0 -1  0  1
+                         0  0  0  1  0"/>
+            <feBlend in="SourceGraphic" in2="colorOut" mode="normal" />
+        </filter>
+    </defs>
+
+    <!-- Title -->
+    <text x="10%" y="10%"
+        font-size="2.5vw" fill="white" font-weight="bold">
+        SVG Filters
+    </text>
+
     <!-- drawing zone -->
+
+    <!-- first column -->
+    <text x="10%" y="20%"
+        font-size="2vw" fill="white" font-weight="bold"
+        filter="url(#blur1)">
+        Anne has onions.
+    </text>
+
+    <image xlink:href="castle.jpg"
+        x="10%" y="27.5%" width="15%"
+        filter="url(#color1)"/>
+
+    <image xlink:href="castle.jpg"
+        x="10%" y="47.5%" width="15%"
+        filter="url(#color2)"/>
+
+    <image xlink:href="castle.jpg"
+        x="10%" y="67.5%" width="15%"
+        filter="url(#color3)"/>
+
+    <!-- second column -->
+    <image xlink:href="castle.jpg"
+        x="30%" y="7.5%" width="15%"
+        filter="url(#color7)"/>
+
+    <image xlink:href="castle.jpg"
+        x="30%" y="27.5%" width="15%"
+        filter="url(#color4)"/>
+
+    <image xlink:href="castle.jpg"
+        x="30%" y="47.5%" width="15%"
+        filter="url(#color5)"/>
+
+    <image xlink:href="castle.jpg"
+        x="30%" y="67.5%" width="15%"
+        filter="url(#color6)"/>
+
+    <!-- third column -->
+    <image xlink:href="castle.jpg"
+        x="50%" y="7.5%" width="15%"
+        filter="url(#transfer1)"/>
+
+    <image xlink:href="castle.jpg"
+        x="50%" y="27.5%" width="15%"
+        filter="url(#transfer2)"/>
+
+    <image xlink:href="castle.jpg"
+        x="50%" y="47.5%" width="15%"
+        filter="url(#transfer3)"/>
+
+    <image xlink:href="castle.jpg"
+        x="50%" y="67.5%" width="15%"
+        filter="url(#transfer4)"/>
+
+    <!-- fourth column -->
+    <image xlink:href="castle.jpg"
+        x="70%" y="7.5%" width="15%"
+        filter="url(#transfer5)"/>
+
+    <image xlink:href="castle.jpg"
+        x="70%" y="27.5%" width="15%"
+        filter="url(#transfer6)"/>
+
+    <image xlink:href="castle.jpg"
+        x="70%" y="47.5%" width="15%"
+        filter="url(#transfer7)"/>
+
+    <image xlink:href="castle.jpg"
+        x="70%" y="67.5%" width="15%"
+        filter="url(#transfer8)"/>
 
     <!-- END drawing zone -->
 
@@ -60,7 +323,6 @@
             verticalLine.setAttribute('stroke-width', '2');
             verticalLine.setAttribute('stroke-dasharray', '0.1%,1%');
             verticalLine.classList.add('grid-line');
-            verticalLine.classList.add('invisible');
             svg.appendChild(verticalLine);
 
             let horizontalLine = document.createElementNS(
@@ -73,7 +335,6 @@
             horizontalLine.setAttribute('stroke-width', '2');
             horizontalLine.setAttribute('stroke-dasharray', '0.1%,1%');
             horizontalLine.classList.add('grid-line');
-            horizontalLine.classList.add('invisible');
             svg.appendChild(horizontalLine);
 
 
@@ -85,10 +346,9 @@
         toggleRect.setAttribute('y', "2.5%");
         toggleRect.setAttribute('height', "5%");
         toggleRect.setAttribute('width', "2.5%");
-        toggleRect.setAttribute('fill', "#024C68");
-        toggleRect.setAttribute('stroke', "#A67600");
         toggleRect.setAttribute('stroke-width', "0.5%");
         toggleRect.classList.add("grid-toggle-btn");
+        toggleRect.classList.add("active");
         toggleRect.onclick = function() {
             let gridLines = document.querySelectorAll('.grid-line');
             for (const gridLine of gridLines) {
