@@ -1,0 +1,79 @@
+<svg version="1.1"
+    baseProfile="full"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <style>/* <![CDATA[ */
+        .rImg1 {
+            opacity: 1;
+            transition: opacity 0.3s;
+        }
+
+        .rImg2 {
+            opacity: 1;
+            transition: opacity 0.3s;
+        }
+
+        .diffuse {
+        }
+
+        .invisible {
+            opacity: 0;
+        }
+    /* ]]> */</style>
+
+    <defs>
+
+        <filter id="picBlur" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="0" />
+        </filter>
+
+        <pattern id="img1" x="0" y="0" width="100%" height="100%"
+            patternUnits="userSpaceOnUse">
+            <image id="img1image" xlink:href="img1.jpg"
+                height="100%" width="100%"
+                preserveAspectRatio="xMidYMid slice"/>
+        </pattern>
+        <pattern id="img2" x="0" y="0" width="100%" height="100%"
+            patternUnits="userSpaceOnUse">
+            <image id="img2image" xlink:href="img2.jpg"
+                height="100%" width="100%"
+                preserveAspectRatio="xMidYMid slice"/>
+        </pattern>
+
+    </defs>
+
+    <!-- <rect class="" x="0%" y="0%"
+        width="100%" height="100%" fill="black"/> -->
+
+    <rect class="rImg1" x="10%" y="10%"
+        width="80%" height="80%" fill="url(#img1)"/>
+
+    <rect class="rImg2 invisible" x="0" y="0"
+        width="100%" height="100%" fill="url(#img2)" />
+
+    <script><![CDATA[
+        const PictureSelection = Object.freeze({
+            "IMG1": 0,
+            "IMG2": 1
+        });
+
+        document.$PictureSelection = PictureSelection;
+
+        let currentImage = PictureSelection.IMG1;
+
+        const img1 = document.querySelector(".rImg1");
+        const img2 = document.querySelector(".rImg2");
+
+        document.$shiftImages = function(callback) {
+            img1.classList.toggle("invisible");
+            img2.classList.toggle("invisible");
+            setTimeout(function() {
+                callback();
+            }, 300);
+        }
+
+
+    ]]></script>
+
+</svg>

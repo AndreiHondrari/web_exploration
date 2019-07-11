@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>SVG Experiment</title>
+        <link rel="shortcut icon" href="data:;">
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <div class="scene-wrapper">
+            <object type="image/svg+xml"
+            data="scene.svg" class="scene diffusable"></object>
+            <div class="clickpad"></div>
+        </div>
+
+        <script type="text/javascript">
+
+            var onDocumentReady = function(){
+                const sceneWrapper = document.querySelector(".scene-wrapper");
+                const scene = document.querySelector(".scene");
+                scene.onload = function() {
+                    const sceneDocument = scene.contentDocument;
+
+                    sceneWrapper.onclick = function() {
+                        scene.classList.add("diffuse");
+                        setTimeout(function() {
+                            sceneDocument.$shiftImages(function() {
+                                scene.classList.remove("diffuse");
+                            });
+                        }, 300);
+
+                    }
+                }
+
+            };
+
+            if (
+                document.readyState === "complete" ||
+                (document.readyState !== "loading" && !document.documentElement.doScroll)
+            ) {
+                onDocumentReady();
+            } else {
+                document.addEventListener("DOMContentLoaded", onDocumentReady);
+            }
+
+        </script>
+    </body>
+</html>
