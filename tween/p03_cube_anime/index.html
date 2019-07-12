@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <link rel="shortcut icon" href="data:;">
+        <title>Tween - Basics</title>
+
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+
+        <div class="controls">
+            <input id="ang-rate" type="number" value="15">
+            <button id="xang-plus" type="button">Xang+</button>
+            <button id="xang-minus" type="button">Xang-</button>
+            <button id="yang-plus" type="button">Yang+</button>
+            <button id="yang-minus" type="button">Yang-</button>
+            <button id="zang-plus" type="button">Zang+</button>
+            <button id="zang-minus" type="button">Zang-</button>
+            <button id="reset" type="button">Reset</button>
+        </div>
+
+        <div class="cubewrapper">
+
+            <div id="my-cube" class="cube">
+                <div class="cube-face front">Front</div>
+                <div class="cube-face back">Back</div>
+                <div class="cube-face left">Left</div>
+                <div class="cube-face right">Right</div>
+                <div class="cube-face top">Top</div>
+                <div class="cube-face bottom">Bottom</div>
+            </div>
+
+        </div>
+
+
+        <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+        <script src="index.js" charset="utf-8"></script>
+    </body>
+</html>

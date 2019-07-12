@@ -1,0 +1,27 @@
+body {
+    background: #1d1f20;
+    padding: 50px;
+    overflow: hidden;
+    color: #FFF;
+}
+
+
+#somescene {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 80%;
+    height: 60.5%;
+    border: 2px dashed cyan;
+}
+
+.circle {
+    position: relative
+    left: 0;
+    width: 100px;
+    height: 100px;
+    background-color: LightSteelBlue;
+    /* border-radius: 50%; */
+}
