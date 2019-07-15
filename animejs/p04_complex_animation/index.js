@@ -19,7 +19,7 @@ $(function() {
 
         const circles = [
             {x: "15%", y: "15%", circle: circ1},
-            {x: "90%", y: "15%", circle: circ2},
+            {x: "85%", y: "15%", circle: circ2},
             {x: "15%", y: "85%", circle: circ3},
             {x: "85%", y: "85%", circle: circ4},
         ];
