@@ -145,6 +145,7 @@ let Animatic = (function() {
                 } else {
                     self.orchestra.touchEnd();
                 }
+                
                 self._nextCountdown = self.nextCount;
 
                 for (const [id, node] of self._nextNodes) {
@@ -190,11 +191,12 @@ let Animatic = (function() {
 
             function _touchStart() {
                 self._animationStatus = AnimationStatus.COMPLETED;
+
                 if (self.previousCount != 0) {
                     self.orchestra.disableNode(self.id);
+                } else {
+                    self.orchestra.touchStart();
                 }
-
-                self.orchestra.touchStart();
 
                 self._previousCountdown = self.previousCount;
 

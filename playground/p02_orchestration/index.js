@@ -76,7 +76,6 @@ $(function() {
                 r: "10%",
 
                 easing: "easeInSine",
-                // duration: 250,
                 duration: parseInt(250 + Math.random() * 500),
             }));
         }
