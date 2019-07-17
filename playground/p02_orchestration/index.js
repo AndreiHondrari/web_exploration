@@ -1,84 +1,127 @@
 'use strict';
 
-let o1 = Animatic.orchestra();
-let n1 = Animatic.node({
-    handler: function(done){console.log("--- N1F"); done();},
-    backward: function(done){console.log("--- N1B"); done();}
-});
-let n2 = Animatic.node({
-    handler: function(done){console.log("--- N2F"); done();},
-    backward: function(done){console.log("--- N2B"); done();}
-});
-let n3 = Animatic.node({
-    handler: function(done){console.log("--- N3F"); done();},
-    backward: function(done){console.log("--- N3B"); done();}
-});
-
-o1.add(n1);
-n1.to(n2).to(n3);
-console.log("ORIGG");
-o1.play();
-
-console.log("\nREVV");
-o1.reverse();
-
 
 $(function() {
     let animationRunning = false;
     const svg = document.querySelector("#sceneObject");
+    let o1 = Animatic.orchestra();
 
-    function doAnimation(finishedCallback) {
-        // const svgDoc = svg.contentDocument;
-        //
-        // svgDoc.onload = function() {
-        //     console.log("hilarious");
-        // }
-        //
-        // const rect = svgDoc.querySelector("rect");
-        // const circ1 = svgDoc.querySelector("#circle1");
-        // const circ2 = svgDoc.querySelector("#circle2");
-        // const circ3 = svgDoc.querySelector("#circle3");
-        // const circ4 = svgDoc.querySelector("#circle4");
-        //
-        // let main = Animatic.branch();
-        //
-        // // sequential animation
-        // let branchSplit = mainBranch.add({}).add({}).split(2);
-        //
-        // // animation parallelization
-        // let branch1 = branchSplit.branch(0);
-        // let branch2 = branchSplit.branch(1);
-        //
-        // // animation parallel branches reunite
+    function prepAnimation(finishedCallback) {
+        const svgDoc = svg.contentDocument;
 
+        const rect = svgDoc.querySelector("rect");
+        const circ1 = svgDoc.querySelector("#circle1");
+        const circ2 = svgDoc.querySelector("#circle2");
+        const circ3 = svgDoc.querySelector("#circle3");
+        const circ4 = svgDoc.querySelector("#circle4");
+
+        let rectAlteration = o1.add(Animatic.node({
+            handler: function(done) {
+                anime({
+                    targets: rect,
+                    easing: "linear",
+                    duration: 500,
+                    complete: done,
+
+                    rx: "10%",
+                });
+            },
+
+            backward: function(done) {
+                anime({
+                    targets: rect,
+                    easing: "linear",
+                    duration: 500,
+                    complete: done,
+
+                    rx: "0%",
+                });
+            },
+        })).to(Animatic.node({
+            handler: function(done) {
+                anime({
+                    targets: rect,
+                    easing: "linear",
+                    duration: 500,
+                    complete: done,
+
+                    opacity: 0
+                });
+            },
+
+            backward: function(done) {
+                anime({
+                    targets: rect,
+                    easing: "linear",
+                    duration: 500,
+                    complete: done,
+
+                    opacity: 1
+                });
+            },
+        }));
+
+        const circles = [
+            {x: "15%", y: "15%", circle: circ1},
+            {x: "85%", y: "15%", circle: circ2},
+            {x: "15%", y: "85%", circle: circ3},
+            {x: "85%", y: "85%", circle: circ4},
+        ];
+
+        for (const circData of circles) {
+            rectAlteration.to(Animatic.animeNode({
+                targets: circData.circle,
+                cx: circData.x,
+                cy: circData.y,
+                r: "10%",
+
+                easing: "easeInSine",
+                // duration: 250,
+                duration: parseInt(250 + Math.random() * 500),
+            }));
+        }
+        o1.onComplete(finishedCallback);
     }
 
+    let button = $("button.inactive");
+
+    let forward = true;
+
     function activateButton() {
-        let button = $("button.inactive");
         button.removeClass("inactive");
 
         button.click(function() {
-            if (animationRunning)
+            if ([
+                Animatic.AnimationStatus.RUNNING,
+            ].includes(o1.status)) {
                 return;
+            }
 
             button.addClass("inactive");
-            animationRunning = true;
 
-            let animationPromise = doAnimation(function() {
-                animationRunning = false;
-                button.removeClass("inactive");
-            });
+            if (forward) {
+                o1.play();
+            } else {
+                o1.reverse();
+            }
+
+            forward = !forward;
         });
+    }
+
+    function doneCallback() {
+        button.removeClass("inactive");
     }
 
     // must do this check because
     // the SVG might not be fully loaded
     if (svg.contentDocument.rootElement !== null){
+        prepAnimation(doneCallback);
         activateButton();
     } else {
         svg.onload = function() {
+            prepAnimation(doneCallback);
             activateButton();
         };
     }
-
 });
