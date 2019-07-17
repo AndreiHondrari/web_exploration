@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     version="1.1">
+
+     <style>
+        rect {
+            transform: translate(-10%, -10%);
+        }
+     </style>
+
+     <rect x="50%" y="50%" dx="-50" width="20%" height="20%" fill="rgb(255, 0, 0)" />
+
+     <circle cx="50%" cy="50%" r="0" fill="LightCyan" id="circle1"/>
+     <circle cx="50%" cy="50%" r="0" fill="Lime" id="circle2"/>
+     <circle cx="50%" cy="50%" r="0" fill="DeepSkyBlue" id="circle3"/>
+     <circle cx="50%" cy="50%" r="0" fill="Gold" id="circle4"/>
+
+     <script><![CDATA[
+
+     ]]></script>
+
+
+</svg>

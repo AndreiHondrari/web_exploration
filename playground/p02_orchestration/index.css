@@ -1,0 +1,61 @@
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.controls {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.controls button {
+    border: 5px solid LightBlue;
+    background-color: DarkSlateBlue;
+    color: white;
+    font-size: 3vw;
+    outline: none !important;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.controls button:hover {
+    background-color: SlateBlue;
+}
+
+.controls button.inactive {
+    background-color: DarkGray;
+    border-color: Gray;
+    color: black;
+    cursor: wait;
+}
+
+.scene {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 70%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: Gainsboro;
+    border-left: 2px solid black;
+}
+
+#sceneObject {
+    box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid black;
+}
