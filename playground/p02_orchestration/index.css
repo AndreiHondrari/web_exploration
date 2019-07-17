@@ -8,54 +8,73 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
-    width: 30%;
+    height: 15%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: Cornsilk;
 }
 
 .controls button {
-    border: 5px solid LightBlue;
-    background-color: DarkSlateBlue;
-    color: white;
-    font-size: 3vw;
+    border: 5px solid Goldenrod;
+    background-color: Wheat;
+    color: SaddleBrown;
+    font-size: 1.5vw;
     outline: none !important;
     padding: 10px 20px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .controls button:hover {
-    background-color: SlateBlue;
+    background-color: Peru;
+    color: FloralWhite;
 }
 
 .controls button.inactive {
-    background-color: DarkGray;
-    border-color: Gray;
-    color: black;
+    background-color: SaddleBrown;
+    border-color: Wheat;
+    color: Peru;
     cursor: wait;
 }
 
 .scene {
     position: absolute;
-    top: 0;
+    top: 15%;
     right: 0;
-    width: 70%;
-    height: 100%;
+    width: 100%;
+    height: 85%;
 
+    display: grid;
+    grid-template: auto / 30% 40% 30%;
+
+    background-color: Ivory;
+    border-top: 2px solid black;
+    box-sizing: border-box;
+}
+
+.midgrid {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
 
-    background-color: Gainsboro;
-    border-left: 2px solid black;
+.scene-object-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
 }
 
 #sceneObject {
+    position: absolute;
+    top: 0;
+    left: 0;
     box-sizing: border-box;
     box-sizing: border-box;
-    border: 1px solid black;
+    border: 1px solid Silver;
+    border-radius: 25px;
+    box-sizing: border-box;
 }
