@@ -9,11 +9,14 @@ $(function() {
     function prepAnimation(finishedCallback) {
         const svgDoc = svg.contentDocument;
 
+        const gaussianBlurText = svgDoc.querySelector("#gaussianBlurText");
+
         const rect = svgDoc.querySelector("rect");
         const circ1 = svgDoc.querySelector("#circle1");
         const circ2 = svgDoc.querySelector("#circle2");
         const circ3 = svgDoc.querySelector("#circle3");
         const circ4 = svgDoc.querySelector("#circle4");
+        const text1 = svgDoc.querySelector("#text1");
 
         let rectAlteration = o1.add(Animatic.node({
             handler: function(done) {
@@ -68,8 +71,10 @@ $(function() {
             {x: "85%", y: "85%", circle: circ4},
         ];
 
+        let circleAnimations = [];
+
         for (const circData of circles) {
-            rectAlteration.to(Animatic.animeNode({
+            const circAnim = Animatic.animeNode({
                 targets: circData.circle,
                 cx: circData.x,
                 cy: circData.y,
@@ -77,8 +82,91 @@ $(function() {
 
                 easing: "easeInSine",
                 duration: parseInt(250 + Math.random() * 500),
+            });
+
+            rectAlteration.to(circAnim);
+            circleAnimations.push(circAnim);
+        }
+
+        const text1Spans = [...text1.querySelectorAll("tspan").values()];
+        let firstText1Span = text1Spans[0];
+        let restText1Spans = text1Spans.slice(1);
+
+        let firstTspanAnim = o1.unite(Animatic.node({
+            handler: function(done) {
+                anime({
+                    targets: firstText1Span,
+                    easing: "linear",
+                    duration: 50,
+                    complete: done,
+
+                    opacity: 1
+                });
+            },
+            backward: function(done) {
+                anime({
+                    targets: firstText1Span,
+                    easing: "linear",
+                    duration: 50,
+                    complete: done,
+
+                    opacity: 0
+                });
+            }
+        }), circleAnimations);
+
+        let previousTSpanAnim = firstTspanAnim;
+
+        for (const t1span of restText1Spans) {
+            previousTSpanAnim = previousTSpanAnim.to(Animatic.node({
+                handler: function(done) {
+                    anime({
+                        targets: t1span,
+                        easing: "linear",
+                        duration: 50,
+                        complete: done,
+
+                        opacity: 1
+                    });
+                },
+                backward: function(done) {
+                    anime({
+                        targets: t1span,
+                        easing: "linear",
+                        duration: 50,
+                        complete: done,
+
+                        opacity: 0
+                    });
+                }
             }));
         }
+
+        previousTSpanAnim.to(Animatic.node({
+            handler: function(done) {
+                anime({
+                    targets: gaussianBlurText,
+                    easing: "linear",
+                    duration: 500,
+                    complete: done,
+
+                    stdDeviation: 5
+                });
+            },
+
+            backward: function(done) {
+                anime({
+                    targets: gaussianBlurText,
+                    easing: "linear",
+                    duration: 500,
+                    complete: done,
+
+                    stdDeviation: 0
+                });
+            }
+        }))
+
+        // register callback for finish
         o1.onComplete(finishedCallback);
     }
 

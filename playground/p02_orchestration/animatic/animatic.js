@@ -123,6 +123,7 @@ let Animatic = (function() {
                 return;
 
             this.orchestra.split(this, firstSource, ...otherSources);
+            return this;
         }
 
         // control
@@ -145,7 +146,7 @@ let Animatic = (function() {
                 } else {
                     self.orchestra.touchEnd();
                 }
-                
+
                 self._nextCountdown = self.nextCount;
 
                 for (const [id, node] of self._nextNodes) {
@@ -318,8 +319,10 @@ let Animatic = (function() {
                 this._uniteList(target, sources);
             } else {
                 firstSource.to(target);
-                this._splitList(target, otherSources);
+                this._uniteList(target, otherSources);
             }
+
+            return target;
         }
 
         // control
